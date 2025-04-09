@@ -130,15 +130,5 @@ public class Pedido {
 				+ ", duracion=" + duracion + ", categoria=" + categoria + ", usuario=" + usuario + "]";
 	}
 
-
-
-	
-
-
-
-
-
-
-
-	
 }
+

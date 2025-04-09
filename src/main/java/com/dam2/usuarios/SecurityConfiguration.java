@@ -13,15 +13,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UsuarioServicio usuarioServicio;
+
+
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
@@ -30,11 +33,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
+
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
 	}
+
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

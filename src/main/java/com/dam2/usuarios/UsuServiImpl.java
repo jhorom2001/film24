@@ -17,40 +17,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuServiImpl implements UsuarioServicio {
 
-	
-	private UsuRegRepositorio usuarioRepositorio;
+    private UsuRegRepositorio usuarioRepositorio;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	
-	public UsuServiImpl(UsuRegRepositorio usuarioRepositorio) {
-		super();
-		this.usuarioRepositorio = usuarioRepositorio;
-	}
+    public UsuServiImpl(UsuRegRepositorio usuarioRepositorio) {
+        this.usuarioRepositorio = usuarioRepositorio;
+    }
 
-	@Override
-	public UsuReg guardar(UsuRegDTO registroDTO) {
-		UsuReg usuario = new UsuReg(registroDTO.getNombre(), 
-				registroDTO.getApellido(),registroDTO.getEmail(),
-				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
-		return usuarioRepositorio.save(usuario);
-	}
+    @Override
+    public UsuReg guardar(UsuRegDTO registroDTO) {
+        UsuReg usuario = new UsuReg(
+                registroDTO.getNombre(),
+                registroDTO.getApellido(),
+                registroDTO.getEmail(),
+                passwordEncoder.encode(registroDTO.getPassword()),
+                Arrays.asList(new Rol("ROLE_USER"))
+        );
+        return usuarioRepositorio.save(usuario);
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UsuReg usuario = usuarioRepositorio.findByEmail(username);
-		if(usuario == null) {
-			throw new UsernameNotFoundException("Usuario o password inválidos");
-		}
-		return new User(usuario.getEmail(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UsuReg usuario = usuarioRepositorio.findByEmail(username);
+        if (usuario == null) {
+            throw new UsernameNotFoundException("Usuario o password inválidos");
+        }
+        return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
+    }
 
-	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
-	}
-	
-	@Override
-	public List<UsuReg> listarUsuarios() {
-		return usuarioRepositorio.findAll();
-	}
+    private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getNombre()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UsuReg> listarUsuarios() {
+        return usuarioRepositorio.findAll();
+    }
 }

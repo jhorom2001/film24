@@ -17,7 +17,6 @@
 # specific language governing permissions and limitations
 # under the License.
 # ----------------------------------------------------------------------------
-
 # ----------------------------------------------------------------------------
 # Maven Start Up Batch script
 #
@@ -290,7 +289,7 @@ MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
 
 # For Cygwin, switch paths to Windows format before running java
 if $cygwin; then
-  [ -n "$M2_HOME" ] &&
+  [ -n "$M2_HOME" ] &&	
     M2_HOME=`cygpath --path --windows "$M2_HOME"`
   [ -n "$JAVA_HOME" ] &&
     JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`

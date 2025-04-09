@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pago de Tarjeta</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.payment-container {
+			background-color: white;
+			width: 400px;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+		}
+
+		h2 {
+			text-align: center;
+			color: #333;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		label {
+			font-size: 14px;
+			color: #333;
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		input[type="text"],
+		input[type="number"],
+		input[type="date"],
+		input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			font-size: 14px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+
+		.submit-btn {
+			background-color: #4CAF50;
+			color: white;
+			padding: 15px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			width: 100%;
+			cursor: pointer;
+			transition: background 0.3s;
+		}
+
+		.submit-btn:hover {
+			background-color: #45a049;
+		}
+
+		.summary {
+			margin-top: 20px;
+			padding: 10px;
+			background-color: #e7f3e7;
+			border-radius: 5px;
+			text-align: center;
+		}
+
+		.summary p {
+			font-size: 16px;
+			margin: 0;
+		}
+
+		.summary .amount {
+			font-size: 20px;
+			font-weight: bold;
+			color: #4CAF50;
+		}
+
+		.back-btn {
+			background-color: #f44336;
+			color: white;
+			padding: 10px;
+			font-size: 14px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			width: 100%;
+			text-align: center;
+		}
+
+		.back-btn:hover {
+			background-color: #e53935;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="payment-container">
+		<h2>Pago de Tarjeta</h2>
+		<form action="/procesar-pago" method="POST">
+			<div class="form-group">
+				<label for="card-name">Nombre en la tarjeta</label>
+				<input type="text" id="card-name" name="card-name" placeholder="Nombre del titular" required>
+			</div>
+			<div class="form-group">
+				<label for="card-number">Número de tarjeta</label>
+				<input type="number" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX" required>
+			</div>
+			<div class="form-group">
+				<label for="expiry-date">Fecha de expiración</label>
+				<input type="date" id="expiry-date" name="expiry-date" required>
+			</div>
+			<div class="form-group">
+				<label for="cvv">Código de seguridad (CVV)</label>
+				<input type="password" id="cvv" name="cvv" placeholder="XXX" required>
+			</div>
+			<div class="form-group">
+				<label for="amount">Monto a pagar</label>
+				<input type="number" id="amount" name="amount" value="100.00" readonly>
+			</div>
+			<button type="submit" class="submit-btn">Realizar pago</button>
+		</form>
+
+		<!-- Resumen del pago -->
+		<div class="summary">
+			<p>Monto a pagar:</p>
+			<p class="amount">$100.00</p>
+		</div>
+
+		<!-- Botón para volver a características -->
+		<button class="back-btn" onclick="window.location.href='caracteristicas.html'">Volver a Características</button>
+	</div>
+</body>
+
+</html>
